@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Adam Smallcomb">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="">
+  </head>
+  <body>
+    <div id="target"></div>
+    <div id="view"></div>
+    <script type="module" src="assets/js/templater.js"></script>
+    <script type="module" src="assets/js/basejump.js"></script>
+    <script type="module" >
+
+// import { html, render } from  "./assets/js/templater.js";
+// import {html, render} from './node_modules/lit-html/lit-html.js';
+import {html, render} from 'https://unpkg.com/lit-html?module';
+import { _j } from  "./assets/js/basejump.js";
+window._j = _j;
+
+const inner = (hidden, style) =>
+  html`
+    <div hidden="${hidden}" style="${style}">
+      By adding "?" to the end of an attribute, it is toggled whenever its value
+      is true. Attributes can be interpolated with "${value}".
+    </div>
+  `;
+
+const template = (inner) =>
+  html`
+    <div @click="${() => alert("Event!")}">
+      ${inner} By adding "@" to the beginning of an attribute, its value is set
+      to be the event handler for the event name in the attribute. Strings,
+      templates, or arrays of templates can be interpolated within elements.
+      Strings are interpolated as text nodes. Templates are directly inserted
+      and are removed when their static strings change. Arrays of templates are
+      also directly inserted, but their static strings MAY NOT change.
+    </div>
+  `;
+
+let hidden = false;
+let style = "color: red";
+let value = "broken";
+const target = document.getElementById("view");
+// const update = () => render(target, template(inner(hidden, style)));
+
+// update();
+
+
+// // Define a template
+// const myTemplate = (name) => html`<p>Hello ${name}</p>`;
+
+// Render the template to the document
+render(template(inner(hidden, style)), target);
+
+_j.attach('#target', `<div onClick="alert('Event!')">
+      By adding "@" to the beginning of an attribute, its value is set
+      to be the event handler for the event name in the attribute. Strings,
+      templates, or arrays of templates can be interpolated within elements.
+      Strings are interpolated as text nodes. Templates are directly inserted
+      and are removed when their static strings change. Arrays of templates are
+      also directly inserted, but their static strings MAY NOT change.
+    </div>`)
+    
+
+    </script>
+    <script>
+
+
+var mytest = {};
+let _label = "hello";
+Object.defineProperty(mytest, "label", {
+    get: () => _label,
+    set: newLabel => {
+      console.log('event:'+newLabel);
+        _label = newLabel;
+    }
+});
+
+    </script>
+  </body>
+</html>

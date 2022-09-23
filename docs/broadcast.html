@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Adam Smallcomb">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="">
+  </head>
+  <body>
+    <div id="target"></div>
+    <script type="text/javascript" src="assets/js/basejump.js"></script>
+<script>
+
+_j.on('broadcast',(e) => {
+
+    if(e.data.clear) document.querySelector('#target').innerHTML = '';
+    if(e.data.message.length){
+      document.querySelector('#target').appendChild(_j.create(`<div>message: ${e.data.message}</div>`))
+    }
+})
+
+</script>
+  </body>
+</html>
